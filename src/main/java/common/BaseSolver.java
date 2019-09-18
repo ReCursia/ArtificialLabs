@@ -16,7 +16,6 @@ public abstract class BaseSolver<T extends Movable<T>> {
     private Deque<Node<T>> nodeDeque;
     private T initialState;
     private T finalState;
-    private MovesListener<T> possibleMovesListener;
 
     public BaseSolver(T initialState, T finalState) {
         this.initialState = initialState;
@@ -25,17 +24,10 @@ public abstract class BaseSolver<T extends Movable<T>> {
         nodeDeque = new ArrayDeque<>();
     }
 
-    public void setPossibleMovesListener(MovesListener<T> possibleMovesListener) {
-        this.possibleMovesListener = possibleMovesListener;
-    }
-
     protected Deque<Node<T>> getNodeDeque() {
         return nodeDeque;
     }
 
-    protected T getInitialState() {
-        return initialState;
-    }
 
     protected T getFinalState() {
         return finalState;
@@ -48,32 +40,26 @@ public abstract class BaseSolver<T extends Movable<T>> {
         nodeDeque.add(new Node<T>(null, initialState));
         incrementMemoryCounter();
         while (!nodeDeque.isEmpty()) {
+            Node<T> currentNode = nodeDeque.poll();
             incrementStepsCounter();
-            Node<T> currentNode = nodeDeque.pollFirst();
             //Check final state
             if (isEqualToFinalState(currentNode)) {
                 return currentNode;
             }
+
             List<T> possibleMoves = currentNode.getData().getPossibleMoves();
-            notifyPossibleMovesListener(possibleMoves);
             addUnsolvedNodes(currentNode, possibleMoves);
             disclosedStates.add(currentNode.getData());
         }
         return null;
     }
 
-    protected void notifyPossibleMovesListener(List<T> possibleMoves) {
-        if (possibleMovesListener != null) {
-            possibleMovesListener.notify(possibleMoves);
-        }
-    }
-
-    protected boolean isEqualToFinalState(Node<T> currentNode) {
+    private boolean isEqualToFinalState(Node<T> currentNode) {
         return currentNode.getData().equals(finalState);
     }
 
-    protected boolean isInDisclosedStates(T t) {
-        return disclosedStates.contains(t);
+    protected boolean isUnsolved(T t) {
+        return !disclosedStates.contains(t);
     }
 
     protected void incrementMemoryCounter() {

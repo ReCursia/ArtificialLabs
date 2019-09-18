@@ -15,7 +15,7 @@ public class DfsSolver<T extends Movable<T>> extends BaseSolver<T> {
     @Override
     protected void addUnsolvedNodes(Node<T> currentNode, List<T> possibleMoves) {
         for (T move : possibleMoves) {
-            if (!isInDisclosedStates(move)) {
+            if (isUnsolved(move)) {
                 getNodeDeque().addFirst(new Node<T>(currentNode, move));
                 incrementMemoryCounter();
             }

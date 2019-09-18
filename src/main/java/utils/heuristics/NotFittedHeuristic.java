@@ -3,7 +3,7 @@ package utils.heuristics;
 import common.Heuristical;
 import model.Table;
 
-public class NotFittedHeuristical implements Heuristical<Table> {
+public class NotFittedHeuristic implements Heuristical<Table> {
     @Override
     public int getWeight(Table state, Table finalState) {
         int counter = 0;

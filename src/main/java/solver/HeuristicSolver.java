@@ -6,11 +6,10 @@ import common.Movable;
 import model.Node;
 
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class HeuristicSolver<T extends Movable<T>> extends BaseSolver<T> {
-    protected Heuristical<T> heuristic;
+    private Heuristical<T> heuristic;
 
     public HeuristicSolver(T initialState, T finalState, Heuristical<T> heuristic) {
         super(initialState, finalState);
@@ -22,7 +21,7 @@ public class HeuristicSolver<T extends Movable<T>> extends BaseSolver<T> {
         sortWithHeuristic(possibleMoves);
 
         for (T move : possibleMoves) {
-            if (!isInDisclosedStates(move)) {
+            if (isUnsolved(move)) {
                 getNodeDeque().addFirst(new Node<T>(currentNode, move));
                 incrementMemoryCounter();
             }
@@ -31,17 +30,10 @@ public class HeuristicSolver<T extends Movable<T>> extends BaseSolver<T> {
 
     protected void sortWithHeuristic(List<T> possibleMoves) {
         //Sort by decrease
-        Collections.sort(possibleMoves, (firstTable, secondTable) -> {
+        possibleMoves.sort((firstTable, secondTable) -> {
             int firstTableWeight = heuristic.getWeight(firstTable, getFinalState());
             int secondTableWeight = heuristic.getWeight(secondTable, getFinalState());
-
-            if (firstTableWeight > secondTableWeight) {
-                return -1;
-            } else if (firstTableWeight < secondTableWeight) {
-                return 1;
-            } else {
-                return 0;
-            }
+            return Integer.compare(secondTableWeight, firstTableWeight);
         });
     }
 }

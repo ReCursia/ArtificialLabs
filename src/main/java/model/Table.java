@@ -47,7 +47,7 @@ public class Table implements Movable<Table> {
 
     @Override
     public List<Table> getPossibleMoves() {
-        List<Table> moves = new ArrayList<Table>();
+        List<Table> moves = new ArrayList<>();
         int row = getEmptyCellRowIndex();
         int column = getEmptyCellColumnIndex();
         //There is maximum

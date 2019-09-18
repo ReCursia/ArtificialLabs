@@ -17,6 +17,7 @@ public class Main {
         BaseSolver<Table> solver = new BfsSolver<Table>(new Table(initialState), new Table(finalState));
 
         //BaseSolver<Table> solver = new AStarSolver<Table>(new Table(initialState), new Table(finalState), new NotFittedHeuristical());
+
         Node<Table> result = solver.solve();
 
         //Print out result

@@ -3,7 +3,7 @@ package utils.heuristics;
 import common.Heuristical;
 import model.Table;
 
-public class ManhattanDistanceHeuristical implements Heuristical<Table> {
+public class ManhattanDistanceHeuristic implements Heuristical<Table> {
     @Override
     public int getWeight(Table state, Table finalState) {
         int distanceCounter = 0;
