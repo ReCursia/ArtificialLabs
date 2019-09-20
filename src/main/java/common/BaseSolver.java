@@ -2,10 +2,10 @@ package common;
 
 import model.Node;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
+import java.util.stream.Collectors;
 
 public abstract class BaseSolver<T extends Movable<T>> {
     private final static int MEMORY_INCREMENT = 1;
@@ -13,40 +13,46 @@ public abstract class BaseSolver<T extends Movable<T>> {
     private List<T> disclosedStates;
     private int stepsCounter;
     private int memoryCounter;
-    private Queue<Node<T>> nodeDeque;
+    private Queue<Node<T>> nodeQueue;
     private T initialState;
     private T finalState;
 
-    protected BaseSolver(T initialState, T finalState) {
-        this(initialState, finalState, new ArrayDeque<>());
+    protected T getInitialState() {
+        return initialState;
     }
 
-    protected BaseSolver(T initialState, T finalState, Queue<Node<T>> nodeDeque) {
+    protected T getFinalState() {
+        return finalState;
+    }
+
+    protected BaseSolver(T initialState, T finalState, Queue<Node<T>> nodeQueue) {
         this.initialState = initialState;
         this.finalState = finalState;
-        this.nodeDeque = nodeDeque;
+        this.nodeQueue = nodeQueue;
         disclosedStates = new ArrayList<>();
     }
 
-    protected Queue<Node<T>> getNodeDeque() {
-        return nodeDeque;
+    protected Queue<Node<T>> getNodeQueue() {
+        return nodeQueue;
     }
 
     protected abstract void addUnsolvedNodes(Node<T> currentNode, List<T> possibleMoves);
 
     public Node<T> solve() {
         //Adding root
-        nodeDeque.add(new Node<>(null, initialState));
+        nodeQueue.add(new Node<>(null, initialState));
         incrementMemoryCounter();
-        while (!nodeDeque.isEmpty()) {
-            Node<T> currentNode = nodeDeque.poll();
+        while (!nodeQueue.isEmpty()) {
+            Node<T> currentNode = nodeQueue.poll();
             incrementStepsCounter();
             //Check final state
             if (isEqualToFinalState(currentNode)) {
                 return currentNode;
             }
-
-            List<T> possibleMoves = currentNode.getData().getPossibleMoves();
+            //Stream
+            List<T> possibleMoves = currentNode.getData().getPossibleMoves().stream()
+                    .filter(this::isUnsolved)
+                    .collect(Collectors.toList());
             addUnsolvedNodes(currentNode, possibleMoves);
             disclosedStates.add(currentNode.getData());
         }
@@ -65,7 +71,7 @@ public abstract class BaseSolver<T extends Movable<T>> {
         memoryCounter += MEMORY_INCREMENT;
     }
 
-    private void incrementStepsCounter() {
+    protected void incrementStepsCounter() {
         stepsCounter += STEP_INCREMENT;
     }
 

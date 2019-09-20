@@ -11,6 +11,11 @@ public class Node<T> {
         this.data = data;
     }
 
+    @Override
+    public String toString() {
+        return data.toString();
+    }
+
     public int getDepth() {
         return depth;
     }

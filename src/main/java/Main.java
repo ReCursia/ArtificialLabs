@@ -2,6 +2,9 @@ import common.BaseSolver;
 import model.Node;
 import model.Table;
 import solver.AStarSolver;
+import solver.BfsSolver;
+import solver.BiDirectionalSolver;
+import utils.OutputUtils;
 import utils.heuristics.ManhattanDistanceHeuristic;
 
 class Main {
@@ -15,19 +18,14 @@ class Main {
                 {{1, 2, 3},
                         {8, 0, 4},
                         {7, 6, 5}};
-
         //BaseSolver<Table> solver = new BfsSolver<>(new Table(initialState), new Table(finalState));
-        BaseSolver<Table> solver = new AStarSolver<>(new Table(initialState), new Table(finalState), new ManhattanDistanceHeuristic());
+        BaseSolver<Table> solver = new BiDirectionalSolver<>(new Table(initialState), new Table(finalState));
+        //BaseSolver<Table> solver = new AStarSolver<>(new Table(initialState), new Table(finalState), new ManhattanDistanceHeuristic());
 
         Node<Table> result = solver.solve();
 
         //Print out result
-        if (result != null) {
-            Node<Table> node = result;
-            do {
-                System.out.println(node.getData().toString());
-            } while ((node = node.getParent()) != null);
-        }
+        OutputUtils.outputNodes(result);
         //Print memory and steps
         System.out.println("/*-------*/");
         System.out.println("Memory: " + solver.getMemoryCounter());

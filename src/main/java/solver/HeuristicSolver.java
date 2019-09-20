@@ -20,10 +20,8 @@ public class HeuristicSolver<T extends Movable<T>> extends BaseSolver<T> {
     @Override
     protected void addUnsolvedNodes(Node<T> currentNode, List<T> possibleMoves) {
         for (T move : possibleMoves) {
-            if (isUnsolved(move)) {
-                getNodeDeque().add(new Node<>(currentNode, move));
-                incrementMemoryCounter();
-            }
+            getNodeQueue().add(new Node<>(currentNode, move));
+            incrementMemoryCounter();
         }
     }
 }
