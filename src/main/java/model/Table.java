@@ -60,7 +60,7 @@ public class Table implements Movable<Table> {
             newCells[row][column - 1] = newCells[row][column];
             newCells[row][column] = temp;
             moves.add(new Table(newCells));
-        } catch (ArrayIndexOutOfBoundsException err) {
+        } catch (ArrayIndexOutOfBoundsException ignored) {
 
         }
         //Try swap right
@@ -70,7 +70,7 @@ public class Table implements Movable<Table> {
             newCells[row][column + 1] = newCells[row][column];
             newCells[row][column] = temp;
             moves.add(new Table(newCells));
-        } catch (ArrayIndexOutOfBoundsException err) {
+        } catch (ArrayIndexOutOfBoundsException ignored) {
 
         }
         //Try swap up
@@ -80,7 +80,7 @@ public class Table implements Movable<Table> {
             newCells[row - 1][column] = newCells[row][column];
             newCells[row][column] = temp;
             moves.add(new Table(newCells));
-        } catch (ArrayIndexOutOfBoundsException err) {
+        } catch (ArrayIndexOutOfBoundsException ignored) {
 
         }
         //Try swap down
@@ -90,7 +90,7 @@ public class Table implements Movable<Table> {
             newCells[row + 1][column] = newCells[row][column];
             newCells[row][column] = temp;
             moves.add(new Table(newCells));
-        } catch (ArrayIndexOutOfBoundsException err) {
+        } catch (ArrayIndexOutOfBoundsException ignored) {
 
         }
         return moves;

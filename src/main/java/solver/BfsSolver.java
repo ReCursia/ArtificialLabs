@@ -16,7 +16,8 @@ public class BfsSolver<T extends Movable<T>> extends BaseSolver<T> {
     protected void addUnsolvedNodes(Node<T> currentNode, List<T> possibleMoves) {
         for (T move : possibleMoves) {
             if (isUnsolved(move)) {
-                getNodeDeque().addLast(new Node<T>(currentNode, move));
+                //TODO this is DFS, not BFS
+                getNodeDeque().add(new Node<>(currentNode, move));
                 incrementMemoryCounter();
             }
         }

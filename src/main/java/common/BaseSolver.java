@@ -4,8 +4,8 @@ import model.Node;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Deque;
 import java.util.List;
+import java.util.Queue;
 
 public abstract class BaseSolver<T extends Movable<T>> {
     private final static int MEMORY_INCREMENT = 1;
@@ -13,31 +13,30 @@ public abstract class BaseSolver<T extends Movable<T>> {
     private List<T> disclosedStates;
     private int stepsCounter;
     private int memoryCounter;
-    private Deque<Node<T>> nodeDeque;
+    private Queue<Node<T>> nodeDeque;
     private T initialState;
     private T finalState;
 
-    public BaseSolver(T initialState, T finalState) {
+    protected BaseSolver(T initialState, T finalState) {
+        this(initialState, finalState, new ArrayDeque<>());
+    }
+
+    protected BaseSolver(T initialState, T finalState, Queue<Node<T>> nodeDeque) {
         this.initialState = initialState;
         this.finalState = finalState;
-        disclosedStates = new ArrayList<T>();
-        nodeDeque = new ArrayDeque<>();
+        this.nodeDeque = nodeDeque;
+        disclosedStates = new ArrayList<>();
     }
 
-    protected Deque<Node<T>> getNodeDeque() {
+    protected Queue<Node<T>> getNodeDeque() {
         return nodeDeque;
-    }
-
-
-    protected T getFinalState() {
-        return finalState;
     }
 
     protected abstract void addUnsolvedNodes(Node<T> currentNode, List<T> possibleMoves);
 
     public Node<T> solve() {
         //Adding root
-        nodeDeque.add(new Node<T>(null, initialState));
+        nodeDeque.add(new Node<>(null, initialState));
         incrementMemoryCounter();
         while (!nodeDeque.isEmpty()) {
             Node<T> currentNode = nodeDeque.poll();
@@ -66,7 +65,7 @@ public abstract class BaseSolver<T extends Movable<T>> {
         memoryCounter += MEMORY_INCREMENT;
     }
 
-    protected void incrementStepsCounter() {
+    private void incrementStepsCounter() {
         stepsCounter += STEP_INCREMENT;
     }
 

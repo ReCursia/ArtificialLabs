@@ -8,11 +8,12 @@ import model.Node;
 import java.util.List;
 import java.util.PriorityQueue;
 
-public class HeuristicSolver<T extends Movable<T>> extends BaseSolver<T> {
-    public HeuristicSolver(T initialState, T finalState, Heuristical<T> heuristic) {
+public class AStarSolver<T extends Movable<T>> extends BaseSolver<T> {
+
+    public AStarSolver(T initialState, T finalState, Heuristical<T> heuristic) {
         super(initialState, finalState, new PriorityQueue<>((first, second) -> {
-            int firstTableWeight = heuristic.getWeight(first.getData(), finalState);
-            int secondTableWeight = heuristic.getWeight(second.getData(), finalState);
+            int firstTableWeight = heuristic.getWeight(first.getData(), finalState) + first.getDepth();
+            int secondTableWeight = heuristic.getWeight(second.getData(), finalState) + second.getDepth();
             return Integer.compare(firstTableWeight, secondTableWeight);
         }));
     }

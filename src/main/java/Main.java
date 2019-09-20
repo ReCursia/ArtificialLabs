@@ -1,12 +1,10 @@
 import common.BaseSolver;
 import model.Node;
 import model.Table;
-import solver.BfsSolver;
-import solver.HeuristicSolver;
+import solver.AStarSolver;
 import utils.heuristics.ManhattanDistanceHeuristic;
-import utils.heuristics.NotFittedHeuristic;
 
-public class Main {
+class Main {
     public static void main(String[] args) {
 
         int[][] initialState =
@@ -18,9 +16,8 @@ public class Main {
                         {8, 0, 4},
                         {7, 6, 5}};
 
-        BaseSolver<Table> solver = new BfsSolver<>(new Table(initialState), new Table(finalState));
-
-        //BaseSolver<Table> solver = new HeuristicSolver<>(new Table(initialState), new Table(finalState), new NotFittedHeuristic());
+        //BaseSolver<Table> solver = new BfsSolver<>(new Table(initialState), new Table(finalState));
+        BaseSolver<Table> solver = new AStarSolver<>(new Table(initialState), new Table(finalState), new ManhattanDistanceHeuristic());
 
         Node<Table> result = solver.solve();
 
