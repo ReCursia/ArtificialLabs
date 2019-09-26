@@ -98,7 +98,7 @@ public class BiDirectionalSolver<T extends Movable<T>> extends BaseSolver<T> {
                 .filter(t -> isUnsolved(t, disclosedStates))
                 .collect(Collectors.toList());
         for (T move : possibleMoves) {
-            currentDeque.addAll(Collections.singletonList(new Node<>(currentNode, move))); //add last
+            currentDeque.add(new Node<>(currentNode, move));
             incrementMemoryCounter();
         }
         disclosedStates.add(currentNode.getData());

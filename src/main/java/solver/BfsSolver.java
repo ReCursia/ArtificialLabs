@@ -5,7 +5,6 @@ import common.Movable;
 import model.Node;
 
 import java.util.ArrayDeque;
-import java.util.Collections;
 import java.util.List;
 
 public class BfsSolver<T extends Movable<T>> extends BaseSolver<T> {
@@ -17,7 +16,7 @@ public class BfsSolver<T extends Movable<T>> extends BaseSolver<T> {
     @Override
     protected void addUnsolvedNodes(Node<T> currentNode, List<T> possibleMoves) {
         for (T move : possibleMoves) {
-            getNodeQueue().addAll(Collections.singletonList(new Node<>(currentNode, move))); //add last
+            getNodeQueue().add(new Node<>(currentNode, move));
             incrementMemoryCounter();
         }
     }
