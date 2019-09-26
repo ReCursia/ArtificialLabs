@@ -10,12 +10,19 @@ import java.util.stream.Collectors;
 public abstract class BaseSolver<T extends Movable<T>> {
     private final static int MEMORY_INCREMENT = 1;
     private final static int STEP_INCREMENT = 1;
-    private List<T> disclosedStates;
+    private final List<T> disclosedStates;
+    private final Queue<Node<T>> nodeQueue;
+    private final T initialState;
+    private final T finalState;
     private int stepsCounter;
     private int memoryCounter;
-    private Queue<Node<T>> nodeQueue;
-    private T initialState;
-    private T finalState;
+
+    protected BaseSolver(T initialState, T finalState, Queue<Node<T>> nodeQueue) {
+        this.initialState = initialState;
+        this.finalState = finalState;
+        this.nodeQueue = nodeQueue;
+        disclosedStates = new ArrayList<>();
+    }
 
     protected T getInitialState() {
         return initialState;
@@ -23,13 +30,6 @@ public abstract class BaseSolver<T extends Movable<T>> {
 
     protected T getFinalState() {
         return finalState;
-    }
-
-    protected BaseSolver(T initialState, T finalState, Queue<Node<T>> nodeQueue) {
-        this.initialState = initialState;
-        this.finalState = finalState;
-        this.nodeQueue = nodeQueue;
-        disclosedStates = new ArrayList<>();
     }
 
     protected Queue<Node<T>> getNodeQueue() {
@@ -63,7 +63,7 @@ public abstract class BaseSolver<T extends Movable<T>> {
         return currentNode.getData().equals(finalState);
     }
 
-    protected boolean isUnsolved(T t) {
+    private boolean isUnsolved(T t) {
         return !disclosedStates.contains(t);
     }
 

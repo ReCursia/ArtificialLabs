@@ -7,7 +7,6 @@ import model.Node;
 import java.util.*;
 import java.util.stream.Collectors;
 
-//TODO REWORK ALL THAT SHIT
 public class BiDirectionalSolver<T extends Movable<T>> extends BaseSolver<T> {
     private Deque<Node<T>> initialToFinalDeque;
     private Deque<Node<T>> finalToInitialDeque;
@@ -57,22 +56,28 @@ public class BiDirectionalSolver<T extends Movable<T>> extends BaseSolver<T> {
     }
 
     private Node<T> getFullPath(List<Node<T>> result) {
+        //Creating first array
         List<T> firstArray = new ArrayList<>();
         Node<T> currentNode = result.get(0);
-        while ((currentNode = currentNode.getParent()) != null) {
+        do {
             firstArray.add(currentNode.getData());
-        }
+        } while ((currentNode = currentNode.getParent()) != null);
+
+        //Reversing first array
+        Collections.reverse(firstArray);
+
+        //Creating second array
         List<T> secondArray = new ArrayList<>();
         currentNode = result.get(1);
-        while ((currentNode = currentNode.getParent()) != null) {
+        do {
             secondArray.add(currentNode.getData());
-        }
-        Collections.reverse(secondArray);
+        } while ((currentNode = currentNode.getParent()) != null);
+
         //Merging
         Node<T> finalResult = null;
         firstArray.addAll(secondArray);
         for (T t : firstArray) {
-            finalResult = new Node<T>(finalResult.getParent(), t);
+            finalResult = new Node<>(finalResult, t);
         }
         return finalResult;
     }

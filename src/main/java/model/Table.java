@@ -9,8 +9,8 @@ import java.util.List;
 
 public class Table implements Movable<Table> {
     private static final int EMPTY_CELL_VALUE = 0;
-    private int[][] cells;
-    private int size;
+    private final int[][] cells;
+    private final int size;
 
     public Table(int[][] values) {
         this.size = values.length;

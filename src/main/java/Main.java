@@ -1,11 +1,8 @@
 import common.BaseSolver;
 import model.Node;
 import model.Table;
-import solver.AStarSolver;
-import solver.BfsSolver;
 import solver.BiDirectionalSolver;
 import utils.OutputUtils;
-import utils.heuristics.ManhattanDistanceHeuristic;
 
 class Main {
     public static void main(String[] args) {
