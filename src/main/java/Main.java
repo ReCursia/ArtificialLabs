@@ -2,9 +2,7 @@ import common.BaseSolver;
 import model.Node;
 import model.Table;
 import solver.AStarSolver;
-import solver.HeuristicSolver;
 import utils.OutputUtils;
-import utils.heuristics.ManhattanDistanceHeuristic;
 import utils.heuristics.NotFittedHeuristic;
 
 class Main {
