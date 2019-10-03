@@ -1,10 +1,8 @@
 import common.BaseSolver;
 import model.Node;
 import model.Table;
-import solver.AStarSolver;
 import solver.BfsSolver;
 import utils.OutputUtils;
-import utils.heuristics.NotFittedHeuristic;
 
 class Main {
     public static void main(String[] args) {
@@ -30,6 +28,7 @@ class Main {
         System.out.println("/*-------*/");
         System.out.println("Memory: " + solver.getMemoryCounter());
         System.out.println("Steps: " + solver.getStepsCounter());
+        System.out.println("Depth: " + result.getDepth());
         System.out.println("/*-------*/");
     }
 }
