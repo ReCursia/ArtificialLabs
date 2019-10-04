@@ -28,7 +28,11 @@ class Main {
         System.out.println("/*-------*/");
         System.out.println("Memory: " + solver.getMemoryCounter());
         System.out.println("Steps: " + solver.getStepsCounter());
+<<<<<<< HEAD
         System.out.println("Depth: " + result.getDepth());
+=======
+        System.out.println("Depth: "+result.getDepth());
+>>>>>>> master
         System.out.println("/*-------*/");
     }
 }
