@@ -9,9 +9,9 @@ public class NotFittedHeuristic implements Heuristical<Table> {
         int counter = 0;
         int[][] stateCells = state.getCells();
         int[][] finalStateCells = finalState.getCells();
-
-        for (int i = 0; i < stateCells.length; i++) {
-            for (int j = 0; j < stateCells[i].length; j++) {
+        int size = state.getSize();
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
                 if (stateCells[i][j] != finalStateCells[i][j]) {
                     counter++;
                 }

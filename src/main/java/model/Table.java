@@ -17,6 +17,10 @@ public class Table implements Movable<Table> {
         this.cells = values;
     }
 
+    public int getSize() {
+        return size;
+    }
+
     public int[][] getCells() {
         return cells;
     }
