@@ -42,7 +42,6 @@ public abstract class BaseSolver<T extends Movable<T>> {
         incrementMemoryCounter();
         while (!nodeQueue.isEmpty()) {
             Node<T> currentNode = nodeQueue.poll();
-
             incrementStepsCounter();
             //Check final state
             if (isEqualToFinalState(currentNode)) {
