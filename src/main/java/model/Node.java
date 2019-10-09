@@ -4,11 +4,21 @@ public class Node<T> {
     private final Node<T> parent;
     private final T data;
     private final int depth;
+    private final int cost;
 
-    public Node(Node<T> parent, T data) {
+    public Node(Node<T> parent, T data, int cost) {
         this.depth = (parent != null) ? parent.depth + 1 : 0;
         this.parent = parent;
         this.data = data;
+        this.cost = cost;
+    }
+
+    public Node(Node<T> parent, T data) {
+        this(parent, data, 1); //Sure?
+    }
+
+    public int getCost() {
+        return cost;
     }
 
     @Override

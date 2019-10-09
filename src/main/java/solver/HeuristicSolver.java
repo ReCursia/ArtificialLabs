@@ -5,22 +5,23 @@ import common.Heuristical;
 import common.Movable;
 import model.Node;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.PriorityQueue;
 
 public class HeuristicSolver<T extends Movable<T>> extends BaseSolver<T> {
+    private Heuristical<T> heuristic;
+
     public HeuristicSolver(T initialState, T finalState, Heuristical<T> heuristic) {
-        super(initialState, finalState, new PriorityQueue<>((first, second) -> {
-            int firstTableWeight = heuristic.getWeight(first.getData(), finalState);
-            int secondTableWeight = heuristic.getWeight(second.getData(), finalState);
-            return Integer.compare(firstTableWeight, secondTableWeight);
-        }));
+        super(initialState, finalState, new PriorityQueue<>(Comparator.comparingInt(Node::getCost)));
+        this.heuristic = heuristic;
     }
 
     @Override
     protected void addUnsolvedNodes(Node<T> currentNode, List<T> possibleMoves) {
         for (T move : possibleMoves) {
-            getNodeQueue().add(new Node<>(currentNode, move));
+            int cost = heuristic.getWeight(move, getFinalState());
+            getNodeQueue().add(new Node<>(currentNode, move, cost));
             incrementMemoryCounter();
         }
     }
