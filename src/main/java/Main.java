@@ -2,15 +2,14 @@ import common.BaseSolver;
 import model.Node;
 import model.Table;
 import solver.AStarSolver;
-import solver.BiDirectionalSolver;
-import solver.HeuristicSolver;
 import utils.OutputUtils;
-import utils.heuristics.ManhattanDistanceHeuristic;
 import utils.heuristics.NotFittedHeuristic;
 
-class Main {
-    public static void main(String[] args) {
+import java.io.IOException;
 
+class Main {
+    public static void main(String[] args) throws IOException {
+        /*
         int[][] initialState =
                 {{4, 3, 1},
                         {8, 2, 5},
@@ -19,7 +18,7 @@ class Main {
                 {{4, 0, 1},
                         {8, 3, 5},
                         {7, 2, 6}};
-         /*
+        */
         int[][] initialState =
                 {{4, 8, 1},
                         {0, 3, 6},
@@ -28,7 +27,6 @@ class Main {
                 {{1, 2, 3},
                         {8, 0, 4},
                         {7, 6, 5}};
-                        */
 
         //BaseSolver<Table> solver = new BfsSolver<>(new Table(initialState), new Table(finalState));
         //BaseSolver<Table> solver = new BiDirectionalSolver<>(new Table(initialState), new Table(finalState));
@@ -42,7 +40,7 @@ class Main {
         System.out.println("/*-------*/");
         System.out.println("Memory: " + solver.getMemoryCounter());
         System.out.println("Steps: " + solver.getStepsCounter());
-        System.out.println("Depth: "+result.getDepth());
+        System.out.println("Depth: " + result.getDepth());
         System.out.println("/*-------*/");
     }
 }

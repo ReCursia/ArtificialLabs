@@ -6,6 +6,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Queue;
 import java.util.stream.Collectors;
@@ -43,16 +44,23 @@ public abstract class BaseSolver<T extends Movable<T>> {
 
     public Node<T> solve() throws IOException {
         //Initiation
-        FileWriter fstream = new FileWriter("D:/log.txt", true); //true tells to append data.
+        FileWriter fstream = new FileWriter("D://log.txt", true); //true tells to append data.
         BufferedWriter out = new BufferedWriter(fstream);
         //Adding root
         nodeQueue.add(new Node<>(null, initialState));
         incrementMemoryCounter();
         while (!nodeQueue.isEmpty()) {
             Node<T> currentNode = nodeQueue.poll();
+            out.write("Current vertex:");
+            out.newLine();
+            out.write(currentNode.toString());
+            out.write("Cost: ");
+            out.write(String.valueOf(currentNode.getCost()));
+            out.newLine();
             incrementStepsCounter();
             //Check final state
             if (isEqualToFinalState(currentNode)) {
+                out.close();
                 return currentNode;
             }
             //Stream
@@ -60,8 +68,18 @@ public abstract class BaseSolver<T extends Movable<T>> {
                     .filter(this::isUnsolved)
                     .collect(Collectors.toList());
             addUnsolvedNodes(currentNode, possibleMoves);
+            out.write("Current queue:");
+            out.newLine();
+            for (Node<T> curElem : nodeQueue) {
+                out.write(curElem.toString());
+                out.write("Cost: ");
+                out.write(String.valueOf(curElem.getCost()));
+                out.newLine();
+            }
             disclosedStates.add(currentNode.getData());
         }
+        out.close();
+
         return null;
     }
 
