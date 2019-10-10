@@ -14,7 +14,7 @@ public class Node<T> {
     }
 
     public Node(Node<T> parent, T data) {
-        this(parent, data, 1); //Sure?
+        this(parent, data, 0); //Sure?
     }
 
     public int getCost() {

@@ -6,7 +6,6 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Queue;
 import java.util.stream.Collectors;
@@ -56,6 +55,8 @@ public abstract class BaseSolver<T extends Movable<T>> {
             out.write(currentNode.toString());
             out.write("Cost: ");
             out.write(String.valueOf(currentNode.getCost()));
+            out.write(" Depth: ");
+            out.write(String.valueOf(currentNode.getDepth()));
             out.newLine();
             incrementStepsCounter();
             //Check final state
@@ -74,6 +75,8 @@ public abstract class BaseSolver<T extends Movable<T>> {
                 out.write(curElem.toString());
                 out.write("Cost: ");
                 out.write(String.valueOf(curElem.getCost()));
+                out.write(" Depth: ");
+                out.write(String.valueOf(curElem.getDepth()));
                 out.newLine();
             }
             disclosedStates.add(currentNode.getData());

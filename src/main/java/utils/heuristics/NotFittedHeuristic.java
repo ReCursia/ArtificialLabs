@@ -12,7 +12,9 @@ public class NotFittedHeuristic implements Heuristical<Table> {
         int size = state.getSize();
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                if (stateCells[i][j] != finalStateCells[i][j]) {
+                if (stateCells[i][j] == 0) {
+                    //nothing
+                } else if (stateCells[i][j] != finalStateCells[i][j]) {
                     counter++;
                 }
             }
