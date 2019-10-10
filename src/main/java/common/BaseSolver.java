@@ -2,7 +2,12 @@ package common;
 
 import model.Node;
 
-import java.util.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Queue;
 import java.util.stream.Collectors;
 
 public abstract class BaseSolver<T extends Movable<T>> {
@@ -36,7 +41,10 @@ public abstract class BaseSolver<T extends Movable<T>> {
 
     protected abstract void addUnsolvedNodes(Node<T> currentNode, List<T> possibleMoves);
 
-    public Node<T> solve() {
+    public Node<T> solve() throws IOException {
+        //Initiation
+        FileWriter fstream = new FileWriter("D:/log.txt", true); //true tells to append data.
+        BufferedWriter out = new BufferedWriter(fstream);
         //Adding root
         nodeQueue.add(new Node<>(null, initialState));
         incrementMemoryCounter();
