@@ -21,7 +21,6 @@ public class AStarSolver<T extends Movable<T>> extends BaseSolver<T> {
     protected void addUnsolvedNodes(Node<T> currentNode, List<T> possibleMoves) {
         for (T move : possibleMoves) {
             int cost = heuristic.getWeight(move, getFinalState()) + currentNode.getDepth() + 1;
-
             getNodeQueue().add(new Node<>(currentNode, move, cost));
             incrementMemoryCounter();
         }

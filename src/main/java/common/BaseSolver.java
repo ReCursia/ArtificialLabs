@@ -11,6 +11,7 @@ import java.util.Queue;
 import java.util.stream.Collectors;
 
 public abstract class BaseSolver<T extends Movable<T>> {
+    private final static boolean APPEND_MODE = true;
     private final static int MEMORY_INCREMENT = 1;
     private final static int STEP_INCREMENT = 1;
     private final List<T> disclosedStates;
@@ -43,7 +44,7 @@ public abstract class BaseSolver<T extends Movable<T>> {
 
     public Node<T> solve() throws IOException {
         //Initiation
-        FileWriter fstream = new FileWriter("D://log.txt", true); //true tells to append data.
+        FileWriter fstream = new FileWriter("D://log.txt", APPEND_MODE);
         BufferedWriter out = new BufferedWriter(fstream);
         //Adding root
         nodeQueue.add(new Node<>(null, initialState));
