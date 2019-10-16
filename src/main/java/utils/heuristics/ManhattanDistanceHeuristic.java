@@ -12,9 +12,6 @@ public class ManhattanDistanceHeuristic implements Heuristical<Table> {
         int size = state.getSize();
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                if(stateCells[i][j] == 0){
-                    continue;
-                }
                 for (int k = 0; k < size; k++) {
                     for (int l = 0; l < size; l++) {
                         if (stateCells[i][j] == finalStateCells[k][l]) {

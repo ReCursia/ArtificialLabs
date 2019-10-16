@@ -66,10 +66,14 @@ public abstract class BaseSolver<T extends Movable<T>> {
                 return currentNode;
             }
             //Stream
+            /*
             List<T> possibleMoves = currentNode.getData().getPossibleMoves().stream()
                     .filter(this::isUnsolved)
                     .collect(Collectors.toList());
-            addUnsolvedNodes(currentNode, possibleMoves);
+
+             */
+            addUnsolvedNodes(currentNode, currentNode.getData().getPossibleMoves());
+
             out.write("Current queue:");
             out.newLine();
             for (Node<T> curElem : nodeQueue) {
@@ -91,7 +95,7 @@ public abstract class BaseSolver<T extends Movable<T>> {
         return currentNode.getData().equals(finalState);
     }
 
-    private boolean isUnsolved(T t) {
+    protected boolean isUnsolved(T t) {
         return !disclosedStates.contains(t);
     }
 

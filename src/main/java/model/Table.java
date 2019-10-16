@@ -26,6 +26,11 @@ public class Table implements Movable<Table> {
     }
 
     @Override
+    public int hashCode() {
+        return Arrays.hashCode(cells);
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;
